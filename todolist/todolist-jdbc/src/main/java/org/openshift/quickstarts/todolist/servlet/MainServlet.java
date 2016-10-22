@@ -43,6 +43,7 @@ public class MainServlet extends HttpServlet {
                                 entryTemplate
                                         .replace("{{ summary }}", escapeHtml(entry.getSummary()))
                                         .replace("{{ description }}", escapeHtml(entry.getDescription()))
+                                        .replace("{{ startDate }}", escapeHtml(entry.getStartDate()))
                         );
                     }
                 } else if (insideLoop) {
@@ -64,8 +65,9 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String summary = req.getParameter("summary");
         String description = req.getParameter("description");
+        String startDate = req.getParameter("startDate");
 
-        todoListService.addEntry(new TodoEntry(summary, description));
+        todoListService.addEntry(new TodoEntry(summary, description, startDate));
 
         resp.sendRedirect("index.html");
     }

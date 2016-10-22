@@ -47,7 +47,7 @@ public class JdbcTodoListDAO implements TodoListDAO {
                     connection.setAutoCommit(true);
                     Statement statement = connection.createStatement();
                     try {
-                        statement.executeUpdate("CREATE TABLE todo_entries (id bigint, summary VARCHAR(255), description TEXT)");
+                        statement.executeUpdate("CREATE TABLE todo_entries (id bigint, summary VARCHAR(255), description TEXT, startDate TEXT)");
                     } finally {
                         statement.close();
                     }
@@ -110,7 +110,8 @@ public class JdbcTodoListDAO implements TodoListDAO {
                             Long id = rset.getLong(1);
                             String summary = rset.getString(2);
                             String description = rset.getString(3);
-                            list.add(new TodoEntry(id, summary, description));
+                            String startDate = rset.getString(4);
+                            list.add(new TodoEntry(id, summary, description, startDate));
                         }
                         return list;
                     } finally {
